@@ -1,4 +1,5 @@
-1.验证函数为verification_sample.py:
+1.
+验证函数为verification_sample.py:
 ```
 python verification_sample.py
 ```
