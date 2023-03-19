@@ -80,12 +80,12 @@ def sample(params):
     
     genshape = (params.batchsize, 3, 32, 32)
     # generated = diffusion.sample(genshape, cemb = cemb)
-    generated,logger_list=diffusion.compare_cond_uncond_diff(genshape,compare_t=list(range(1000)), cemb = cemb)
+    generated,logger_list=diffusion.compare_cond_uncond_diff(genshape,compare_t=list(range(1000)), use_classifier=False,cemb = cemb)
     
     import matplotlib.pyplot as plt 
     f=plt.figure()
-    plt.plot(list(range(1000)[::-1]), logger_list)
-    f.savefig('z.jpg')
+    plt.plot(list(range(1000)), logger_list)
+    f.savefig('res_mean.jpg')
     #transform samples into images
     img = transback(generated)
     # save images

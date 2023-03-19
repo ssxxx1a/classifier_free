@@ -301,7 +301,7 @@ class GaussianDiffusion(nn.Module):
     #     x_t = torch.clamp(x_t, -1, 1)
     #     print('ending sampling process...')
     #     return x_t
-    def compare_cond_uncond_diff(self,shape,compare_t,clear_compare_results=False,**model_kwargs):#主函数 sample
+    def compare_cond_uncond_diff(self,shape,compare_t,clear_compare_results=False,use_classifier=True,**model_kwargs):#主函数 sample
         print('Start generating...')
         logger_list=[]
         if model_kwargs == None:
@@ -313,7 +313,7 @@ class GaussianDiffusion(nn.Module):
             if not isinstance(compare_t,list):
                 compare_t=[compare_t]
             if tlist[0] in compare_t:
-                sum_eps_condition,eps_uncond=self.calc_diff(x_t,tlist)
+                sum_eps_condition,eps_uncond=self.calc_diff(x_t,tlist,use_classifier)
                 logger_list.append(abs(sum_eps_condition.cpu().numpy()-eps_uncond.cpu().numpy()).mean())
                 if clear_compare_results:
                     try:
