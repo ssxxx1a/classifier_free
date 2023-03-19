@@ -52,7 +52,7 @@ def sample(params):
     # settings for diffusion model
     betas = get_named_beta_schedule(num_diffusion_timesteps = params.T)
     #classifier=torchvision.models.resnet18(num_classes=10)
-    classifier=create_classifier('/data/DMs/classifier-free-diffusion-guidance-Pytorch/model199999.pt').to(params.device)
+    classifier=create_classifier('./pretrained_model/model199999.pt').to(params.device)
    
     diffusion = GaussianDiffusion(dtype = params.dtype,
                                model = net,
@@ -102,7 +102,7 @@ def main():
     # parser.add_argument('--end',type=int,default=10)
     parser.add_argument('--device',default=torch.device("cuda:0" if torch.cuda.is_available() else "cpu"),help='devices for training Unet model')
     parser.add_argument('--label',type=str,default='not_range',help='labels of generated images')
-    parser.add_argument('--moddir',type=str,default='model',help='model addresses')
+    parser.add_argument('--moddir',type=str,default='pretrained_model',help='model addresses')
     parser.add_argument('--samdir',type=str,default='sample',help='sample addresses')
     parser.add_argument('--test_sample_dir',type=str,default='./',help='sample addresses')
     parser.add_argument('--inch',type=int,default=3,help='input channels for Unet model')
