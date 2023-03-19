@@ -84,7 +84,7 @@ def sample(params):
     
     import matplotlib.pyplot as plt 
     f=plt.figure()
-    plt.plot(list(range(1000)), logger_list)
+    plt.plot(list(range(1000)[::-1]), logger_list)
     f.savefig('z.jpg')
     #transform samples into images
     img = transback(generated)
