@@ -60,7 +60,8 @@ def sample(params):
                                w = params.w,
                                v = params.v,
                                device = params.device,
-                               classifier=classifier)
+                               classifier=classifier,
+                               cemblayer=cemblayer)
     # eval mode
     diffusion.model.eval()
     cemblayer.eval()
@@ -76,12 +77,15 @@ def sample(params):
         #lab=torch.tensor([1]).to(params.device)
     # get label embeddings
     cemb = cemblayer(lab)
+    
     genshape = (params.batchsize, 3, 32, 32)
     # generated = diffusion.sample(genshape, cemb = cemb)
-    generated=diffusion.compare_cond_uncond_diff(genshape,compare_t=999, cemb = cemb)
-    print(generated)
+    generated,logger_list=diffusion.compare_cond_uncond_diff(genshape,compare_t=list(range(1000)), cemb = cemb)
     
-    
+    import matplotlib.pyplot as plt 
+    f=plt.figure()
+    plt.plot(list(range(1000)), logger_list)
+    f.savefig('z.jpg')
     #transform samples into images
     img = transback(generated)
     # save images
